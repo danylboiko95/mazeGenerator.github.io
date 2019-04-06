@@ -1,0 +1,104 @@
+html, body{
+    
+    
+    
+}
+#container{
+    top: 100px;
+    width: 90%;
+    display: flex;
+    color: white;
+    position: relative;
+    margin: 0 auto;
+    flex-direction: column;
+    align-items: center;
+}
+
+#maze{
+    
+    margin: 0 auto;
+    background-color: #333;
+    display: grid;
+    grid-template-rows: repeat(25,25px);
+    grid-template-columns: repeat(25,25px);
+    
+    outline: 5px solid #333;
+
+}
+
+#start{
+    z-index: 9999;
+    background-position: center;
+    background-size: 200%;
+    background-repeat: no-repeat;
+    background-image: url(./img/cave.png);
+}
+#finish{
+    z-index: 9999;
+    background-color: white;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url(./img/princess.png);
+}
+#win{
+    background-image: url(./img/together.png);
+}
+.move{
+    z-index: 9999;
+    background-color: white;
+    
+}
+.changed{
+    background-color: blue;
+}
+.block{
+    border: 1px solid #fff;
+    text-align: center;
+    
+}
+.player{
+    background-color: white;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url(./img/mario-big.png);
+    
+}
+
+.winGame{
+
+    font-size: 30px;
+    color: #333;
+    font-weight: 600;
+    font-family: sans-serif;
+    text-align: center;
+
+    margin: 0 auto;
+    width: 50%;
+    min-height: 80vh;   
+    background-size: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url(./img/together.png);
+    
+}
+
+.find{
+    width: 200px;
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+    font-size: 30px;
+    font-weight: 100;
+    border-radius: 6px;
+    border: none;
+    transition: all .2s;
+}
+.find:hover{
+    cursor: pointer;
+    transform: translateY(-5px);
+}
+.find:active{
+    cursor: pointer;
+    transform: none;
+}
