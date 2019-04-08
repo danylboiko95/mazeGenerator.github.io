@@ -41,10 +41,10 @@ class Maze {
         for (let j = 0; j < this.size; j++) {//заполнение массива
             for (let i = 0; i < this.size; i++) {
                 let number = 3;//закрытый блок
-                this.mazeArr[j][i] = number;
+                this.mazeArr[j][i] = number; // what do you need it for? you override it on the next line
                 this.mazeArr[j][i] = document.createElement('div');
 
-                this.mazeArr[j][i].classList += `block`;
+                this.mazeArr[j][i].classList += `block`; // use constants
 
                 elements.maze.appendChild(this.mazeArr[j][i]);
             }
@@ -53,16 +53,16 @@ class Maze {
     initBeginFinish() {
         let start = this.mazeArr[this.size - 3][0];//из-за того, что заранее не продумал, что надо будет делать четное количество блоков. задал высоту 25. Четное надо, так как возможность прохода считается как отдельный блок
         let finish = this.mazeArr[0][this.size - 1];
-        start.id = 'start';
-        finish.id = 'finish';
+        start.id = 'start'; // use constants, not magic strings
+        finish.id = 'finish'; // the same
 
         for (let j = 0; j < this.size; j++) {//назначить в state координаты старта
             for (let i = 0; i < this.size; i++) {
-                if (this.mazeArr[j][i].id === 'start') {
+                if (this.mazeArr[j][i].id === 'start') { // it's better to use a separate method isStart() for this 
                     state.startCoordinates.row = j;
                     state.startCoordinates.column = i;
                 }
-                if (this.mazeArr[j][i].id === 'finish') {
+                if (this.mazeArr[j][i].id === 'finish') { // the same, separate method
                     state.finishCoordinates.row = j;
                     state.finishCoordinates.column = i;
                 }
@@ -75,8 +75,8 @@ class Maze {
         for (let i = 0; i < (this.size); i++) {//как раз для заполнения лабиринта сеткой
             moveColumn = 0;
             for (let j = 0; j < (this.size); j++) {
-                if (moveColumn < this.size && moveRow < this.size) {
-                    this.mazeArr[moveRow][moveColumn].classList += ' move';
+                if (moveColumn < this.size && moveRow < this.size) { // again, use a separte method, something like isInside()
+                    this.mazeArr[moveRow][moveColumn].classList += ' move'; // use constants for classes
                     moveColumn += 2;
                 }
             }
@@ -91,13 +91,13 @@ class Maze {
             moveColumn = 0;
 
             for (let j = 0; j < (this.size); j++) {
-                if (this.random(2, 0) && moveRow > 0 && moveRow < (this.size - 1) && !this.mazeArr[moveRow - 1][moveColumn].classList.contains('move')) {
-                    this.mazeArr[moveRow - 1][moveColumn].classList += ' move';
+                if (this.random(2, 0) && moveRow > 0 && moveRow < (this.size - 1) && !this.mazeArr[moveRow - 1][moveColumn].classList.contains('move')) { // you definitely need a method here 
+                    this.mazeArr[moveRow - 1][moveColumn].classList += ' move'; // constants
                     if (moveColumn < this.size - 1) {
                         moveColumn += 2;
                     }
                 } else if (moveColumn < this.size - 1) {
-                    this.mazeArr[moveRow][moveColumn + 1].classList += ' move';
+                    this.mazeArr[moveRow][moveColumn + 1].classList += ' move'; // use can use method classList.add()
                     moveColumn += 2;
                 }
             }
@@ -114,12 +114,12 @@ class Maze {
         state.player.row = state.startCoordinates.row;
         state.player.column = state.startCoordinates.column;
         document.addEventListener('keydown', (e) => {//не знаю как снять событие. Вроде добавляю document.addEventListener('keydown', this.onMove(e)); А потом addEventListener. Но всё равно не получается как хочу. Так как при  этом варианте (e) не передается как параметр. 
-            this.onMove(e);
+            this.onMove(e); // it works
         })
         // console.log(state.player);
     }
-    onMove(event) {
-        if (event.keyCode == 38) {
+    onMove(event) { // the naming is not good
+        if (event.keyCode == 38) { // use constants for the key codes as well
             if (state.player.row != 0) {
                 this.canMove(-1, 0)//UP
             }
@@ -144,9 +144,9 @@ class Maze {
 
         }
     }
-    canMove(row, column) {
+    canMove(row, column) { // the naming is not good
 
-        if (this.mazeArr[state.player.row + row][state.player.column + column].classList.contains('move') || this.mazeArr[state.player.row + row][state.player.column + column].id === 'finish') {
+        if (this.mazeArr[state.player.row + row][state.player.column + column].classList.contains('move') || this.mazeArr[state.player.row + row][state.player.column + column].id === 'finish') { // one more complex condition
             if (this.mazeArr[state.player.row][state.player.column].classList.remove('player')) {//если можно удалить, то удаляй
                 this.mazeArr[state.player.row][state.player.column].classList.remove('player')
             };
@@ -163,7 +163,7 @@ class Maze {
 
     win() {
 
-        if (state.finishCoordinates.row === state.player.row && state.finishCoordinates.column === state.player.column) {
+        if (state.finishCoordinates.row === state.player.row && state.finishCoordinates.column === state.player.column) { // isFinish()
 
             finish.id = 'win';
             elements.container.innerHTML = '';
